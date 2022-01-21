@@ -1,0 +1,19 @@
+body {
+    margin: 0 auto;
+}
+
+.header-navbar {
+    display: flex;
+    height: 50px;
+}
+
+.header-navbar img{
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.willkommen {
+    border: 6px solid magenta;
+    height: 50vh;
+}
+
