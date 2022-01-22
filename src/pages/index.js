@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useStaticQuery, graphql } from 'gatsby'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BiChevronDown } from "react-icons/bi";
 
@@ -6,16 +7,18 @@ import Navbar from "../components/NavBar.js"
 
 import musikschule_gebaeude from "../images/Foto_01.jpg"
 
+import diana from "../images/Foto_07.jpg"
+
 
 const rows = [
     {
 	id: 1,
 	title: "Verantwortliche",
-
     },
     {
 	id: 2,	
 	title: "Lehrende der Zupfinstrumente",
+	instrument: "zupfinstrumente"
     },
     {
 	id: 3,	
@@ -47,17 +50,42 @@ const rows = [
     }
 ]
 
-const RowContent = () => {
+const teachers = [
+    {
+	id: 1,
+	name: "Diana Abouem a Tchoyi",
+	teaches: "zupfinstrumente",
+	picture: diana,
+	instruments: "Violine Strecherklassen",
+	bio: "Tis n that",
+    },
+]
+
+
+class RowContent extends React.Component {
+    render() {
+	if (teachers.teaches == rows.instrument) {
     return(
 	<div>
-	    <div>
-		<img src={{}} alt={{}} />
-	    </div>
-	    <div>
-		<h3> </h3>
-	    </div>
+	    {teachers.map(teacher => (
+		<div className="d-flex">
+		    <img src={diana} style={{width: "160px"}} />
+		    <div>
+			<h2>{teacher.name}</h2>
+			<h3>{teacher.instruments}</h3>
+			<p>{teacher.bio}</p>
+		    </div>
+		</div>
+	    ))
+	    }
 	</div>
     )
+	} else {
+	    return(
+		<h1>hi</h1>
+	    )
+	}
+    }
 }
 
 class DropDownRows extends React.Component {
@@ -90,7 +118,6 @@ class DropDownRows extends React.Component {
 		    {this.state.isToggleOn ? <RowContent /> : ''}
 		</div>
 	    ))}
-
 	</div>
 	)
     }
@@ -113,5 +140,7 @@ const IndexPage = () => {
 	</div>
     )
 }
+
+
 
 export default IndexPage
