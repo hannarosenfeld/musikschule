@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
+import * as React from 'react'
+import { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from 'gatsby'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BiChevronDown } from "react-icons/bi";
 
+import StaffList from "./StaffList"
 
-import diana from "../images/Foto_07.jpg"
 
 
 const rows = [
@@ -47,43 +47,6 @@ const rows = [
     }
 ]
 
-const teachers = [
-    {
-	id: 1,
-	name: "Diana Abouem a Tchoyi",
-	teaches: "zupfinstrumente",
-	picture: diana,
-	instruments: "Violine Strecherklassen",
-	bio: "Tis n that",
-    },
-]
-
-
-class RowContent extends React.Component {
-    render() {
-	if (teachers.teaches == rows.instrument) {
-    return(
-	<div>
-	    {teachers.map(teacher => (
-		<div className="d-flex">
-		    <img src={diana} style={{width: "160px"}} />
-		    <div>
-			<h2>{teacher.name}</h2>
-			<h3>{teacher.instruments}</h3>
-			<p>{teacher.bio}</p>
-		    </div>
-		</div>
-	    ))
-	    }
-	</div>
-    )
-	} else {
-	    return(
-		<h1>hi</h1>
-	    )
-	}
-    }
-}
 
 class DropDownRows extends React.Component {
     constructor(props) {
@@ -112,13 +75,12 @@ class DropDownRows extends React.Component {
 			<div>
 			</div>
 		    </div>
-		    {this.state.isToggleOn ? <RowContent /> : ''}
+		    {this.state.isToggleOn ? <StaffList /> : ''}
 		</div>
 	    ))}
 	</div>
 	)
     }
 }
-
 
 export default DropDownRows

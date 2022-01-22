@@ -7,7 +7,7 @@ import musikschule_gebaeude from "../images/Foto_01.jpg"
 
 
 
-const IndexPage = () => {
+const IndexPage = ({ data }) => {
     return (
 	<div>
 	    <Layout>
@@ -18,6 +18,15 @@ const IndexPage = () => {
 		    <div className="container d-flex flex-column">
 			<h1>PÄDAGOGEN & VERWALTUNG</h1>
 			<DropDownRows />
+			<div>
+			    {/* {
+				data.allFile.nodes.map(node => (
+				<li key={node.name}>
+				{node.name}
+				</li>
+				))
+				} */}
+			</div>
 		    </div>
 		</section>
 	    </Layout>
@@ -25,6 +34,15 @@ const IndexPage = () => {
     )
 }
 
+export const query = graphql`
+    query {
+	allFile {
+	    nodes {
+		name
+	    }
+	}
+    }
+`
 
 
 export default IndexPage
