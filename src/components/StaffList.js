@@ -1,45 +1,35 @@
 import * as React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
-
-
-/* const teachers = [
- *    {
-   id: 1,
-   name: "Diana Abouem a Tchoyi",
-   teaches: "zupfinstrumente",
-   picture: diana,
-   instruments: "Violine Strecherklassen",
-   bio: "Tis n that",
- *    },
-   ]
-
-   class RowContent extends React.Component {
- *    render() {
-   return(
-   <div>
-   {teachers.map(teacher => (
-   <div className="d-flex">
-   <img src={diana} style={{width: "160px"}} />
-   <div>
-   <h2>{teacher.name}</h2>
-   <h3>{teacher.instruments}</h3>
-   <p>{teacher.bio}</p>
-   </div>
-   </div>
-   ))
-   }
-   </div>
-   )
- *    }
-   }
- */
+import { StaticQuery, useStaticQuery, graphql } from 'gatsby'
 
 
 const StaffList = ({ data }) => {
-    return (
-	<div>
-	    hi
-	</div>
+    
+    return(
+	<StaticQuery
+	query={graphql`
+	    query MyQuery {
+		allMdx {
+		    edges {
+			node {
+			    id
+			    body
+			    frontmatter {
+				title
+
+			    }
+			}
+		    }
+		}
+	    }	    
+	`}
+
+        render={data => (
+	    <div>
+	    <h1>{data.allMdx.edges.map(edge => <h1 key={edge.node.id} data={edge.node} >{edge.node.frontmatter.title}</h1>)}</h1>
+	    { console.log(data.allMdx.edges[0].node) }
+	    </div>
+	    )}
+	/>
     )
 }
 
