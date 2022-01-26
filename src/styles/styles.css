@@ -32,11 +32,17 @@ p {
 
 .staff-container {
     background: #faf9ff;
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+
 }
 
 .staff-container article {
     display: flex;
-    width: 50%;
+    margin: 1em;
+    align-items: center;
+    width: 45%;
 }
 
 

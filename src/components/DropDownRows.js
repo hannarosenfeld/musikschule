@@ -14,12 +14,12 @@ const rows = [
     },
     {
 	id: 2,	
-	title: "Lehrende der Zupfinstrumente",
-	instrument: "zupfinstrumente"
+	title: "Lehrende der Streichinstrumente",
+	instrument: "streichinstrumente"
     },
     {
 	id: 3,	
-	title: "Lehrende der Blechblasinstrumente",
+	title: "Lehrende der Zupfinstrumente",
     },
     {
 	id: 4,	
@@ -60,25 +60,26 @@ class DropDownRows extends React.Component {
 	    isToggleOn: !prevState.isToggleOn
 	}));
     }
+    
     render() {
 	return (
 	    <div className="dropdown-rows">
-	    {rows.map(row => (
-		<div key={row.id}>
-		    <div className="row">
-			<div className="col">{row.title}</div>
-			<div className="col">
-			    <BiChevronDown
-			    onClick={this.handleClick}
-			    style={{float: "right"}}/>
+		{rows.map(row => (
+		    <div key={row.id}>
+			<div className="row">
+			    <div className="col">{row.title}</div>
+			    <div className="col">
+				<BiChevronDown
+				    onClick={this.handleClick}
+				    style={{float: "right"}}/>
+			    </div>
+			    <div>
+			    </div>
 			</div>
-			<div>
-			</div>
+			{this.state.isToggleOn ? <StaffList /> : ''}
 		    </div>
-		    {this.state.isToggleOn ? <StaffList /> : ''}
-		</div>
-	    ))}
-	</div>
+		))}
+	    </div>
 	)
     }
 }
