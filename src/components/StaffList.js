@@ -36,13 +36,13 @@ function StaffList({ data }) {
 	    <div className="staff-container">
 	    {data.allMdx.edges.map(edge => (
 		<article>
-		    <div>
+		    <div className="staff-image-container">
 			<GatsbyImage key={edge.node.id} alt='some alt text' image={getImage(edge.node.frontmatter.featuredImage)} style={{margin: "0 auto", padding: "0"}} />
 		    </div>
-		    <div style={{margin: "0 1em"}}>
+		    <div style={{margin: "0 2em"}}>
 			<div>
 			    <h4 key={edge.node.id} style={{margin: "0"}}>{edge.node.frontmatter.title}</h4>
-			    <p>{edge.node.frontmatter.description}</p>
+			    <h5>{edge.node.frontmatter.description}</h5>
 			</div>
 			<p><MDXProvider>{edge.node.excerpt}</MDXProvider></p>
 		    </div>
