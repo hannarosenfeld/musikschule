@@ -1,35 +1,47 @@
 import * as React from 'react'
-import { StaticQuery, useStaticQuery, graphql } from 'gatsby'
+import { StaticQuery, graphql } from 'gatsby'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-
-const StaffList = ({ data }) => {
     
+function StaffList({ data }) {
     return(
-	<StaticQuery
-	query={graphql`
-	    query MyQuery {
-		allMdx {
-		    edges {
-			node {
-			    id
-			    body
-			    frontmatter {
-				title
-
-			    }
-			}
-		    }
-		}
-	    }	    
-	`}
+    <StaticQuery
+    query={graphql`
+        query staffQuery {
+        allMdx {
+            edges {
+            node {
+                id
+                body
+                frontmatter {
+                title
+                featuredImage {
+                 childImageSharp {
+                   gatsbyImageData(
+                     width: 200
+                     placeholder: BLURRED
+                   )
+                 }
+                }
+                }
+            }
+            }
+        }
+        }       
+        `}
 
         render={data => (
-	    <div>
-	    <h1>{data.allMdx.edges.map(edge => <h1 key={edge.node.id} data={edge.node} >{edge.node.frontmatter.title}</h1>)}</h1>
-	    { console.log(data.allMdx.edges[0].node) }
-	    </div>
-	    )}
-	/>
+         <div style={{background: "#faf9ff"}}>
+        {data.allMdx.edges.map(edge => (
+         <article >
+          <h1 key={edge.node.id}>{edge.node.frontmatter.title}</h1>
+            <GatsbyImage  key={edge.node.id} alt='some alt text' image={getImage(edge.node.frontmatter.featuredImage)} />
+
+         </article> 
+        ))}
+        </div>
+    )}
+    />
     )
 }
 
