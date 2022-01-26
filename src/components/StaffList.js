@@ -1,47 +1,56 @@
 import * as React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { MDXProvider } from "@mdx-js/react"
 
-    
+
 function StaffList({ data }) {
     return(
-    <StaticQuery
-    query={graphql`
-        query staffQuery {
-        allMdx {
-            edges {
-            node {
-                id
-                body
-                frontmatter {
-                title
-                featuredImage {
-                 childImageSharp {
-                   gatsbyImageData(
-                     width: 200
-                     placeholder: BLURRED
-                   )
-                 }
-                }
-                }
-            }
-            }
-        }
-        }       
+	<StaticQuery
+	query={graphql`
+	    query staffQuery {
+		allMdx {
+		    edges {
+			node {
+			    excerpt(pruneLength: 900)
+			    id
+			    body
+			    frontmatter {
+				title
+				description
+				featuredImage {
+				    childImageSharp {
+					gatsbyImageData(
+					    placeholder: BLURRED
+					)
+				    }
+				}
+			    }
+			}
+		    }
+		}
+	    }       
         `}
 
         render={data => (
-         <div style={{background: "#faf9ff"}}>
-        {data.allMdx.edges.map(edge => (
-         <article >
-          <h1 key={edge.node.id}>{edge.node.frontmatter.title}</h1>
-            <GatsbyImage  key={edge.node.id} alt='some alt text' image={getImage(edge.node.frontmatter.featuredImage)} />
-
-         </article> 
-        ))}
-        </div>
-    )}
-    />
+	    <div className="staff-container">
+	    {data.allMdx.edges.map(edge => (
+		<article>
+		    <div>
+		    <GatsbyImage key={edge.node.id} alt='some alt text' image={getImage(edge.node.frontmatter.featuredImage)} />
+		    </div>
+		    <div>
+			<div>
+			<h4 key={edge.node.id}>{edge.node.frontmatter.title}</h4>
+			<p>{edge.node.frontmatter.description}</p>
+			</div>
+			<p><MDXProvider>{edge.node.excerpt}</MDXProvider></p>
+		    </div>
+		</article> 
+	    ))}
+	    </div>
+	)}
+	/>
     )
 }
 

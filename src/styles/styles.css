@@ -2,6 +2,11 @@ body {
     margin: 0 auto;
 }
 
+
+p {
+    font-size: 0.8rem;
+}
+
 .header-navbar {
     display: flex;
     height: 50px;
@@ -19,16 +24,21 @@ body {
 
 
 
-.paedagogen-und-verwaltung {
-
-}
-
-.paedagogen-und-verwaltung .dropdown-rows {
-}
-
 .paedagogen-und-verwaltung .dropdown-rows .row {
     background: #cbc3ff;
     margin: 0.5em auto;
     padding: 0.5em;
 }
+
+.staff-container {
+    background: #faf9ff;
+}
+
+.staff-container article {
+    display: flex;
+    width: 50%;
+}
+
+
+
 
