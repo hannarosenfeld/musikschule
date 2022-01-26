@@ -34,15 +34,5 @@ const IndexPage = ({ data }) => {
     )
 }
 
-export const query = graphql`
-    query {
-	allFile {
-	    nodes {
-		name
-	    }
-	}
-    }
-`
-
 
 export default IndexPage
