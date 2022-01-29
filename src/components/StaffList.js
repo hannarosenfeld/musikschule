@@ -5,6 +5,7 @@ import { MDXProvider } from "@mdx-js/react"
 
 
 function StaffList({ data }) {
+    
     return(
 	<StaticQuery
 	query={graphql`
@@ -16,6 +17,7 @@ function StaffList({ data }) {
 			    id
 			    body
 			    frontmatter {
+                                id
 				title
 				description
 				featuredImage {
@@ -34,8 +36,8 @@ function StaffList({ data }) {
 
         render={data => (
 	    <div className="staff-container">
-	    {data.allMdx.edges.map(edge => (
-		<article>
+		{data.allMdx.edges.map(edge => (
+		    <article>
 		    <div className="staff-image-container">
 			<GatsbyImage key={edge.node.id} alt='some alt text' image={getImage(edge.node.frontmatter.featuredImage)} style={{margin: "0 auto", padding: "0"}} />
 		    </div>

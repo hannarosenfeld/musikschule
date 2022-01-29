@@ -41,10 +41,8 @@ h5 {
 
 .staff-container {
     background: #faf9ff;
-    align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
-
 }
 
 .staff-container article {

@@ -1,7 +1,10 @@
 import * as React from 'react'
 import { useState, useEffect } from "react"
-import { useStaticQuery, graphql } from 'gatsby'
+import { StaticQuery, graphql } from 'gatsby'
 import { BiChevronDown } from "react-icons/bi";
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { MDXProvider } from "@mdx-js/react"
+
 
 import StaffList from "./StaffList"
 
@@ -48,6 +51,26 @@ const rows = [
 ]
 
 
+
+function Departments(props) {
+    return(
+
+	    <article >
+		<div className="staff-image-container">
+		    <GatsbyImage key={props.key} alt='some alt text' image={props.image} style={{margin: "0 auto", padding: "0"}} />
+		</div>
+		<div style={{margin: "0 2em"}}>
+		    <div>
+			<h4 key={props.key} style={{margin: "0"}}>{props.name}</h4>
+			<h5>{props.description}</h5>
+		    </div>
+		    <p><MDXProvider>{props.bio}</MDXProvider></p>
+		</div>
+	    </article> 
+    )
+}
+
+
 class DropDownRows extends React.Component {
     constructor(props) {
 	super(props);
@@ -60,26 +83,63 @@ class DropDownRows extends React.Component {
 	    isToggleOn: !prevState.isToggleOn
 	}));
     }
+
     
     render() {
 	return (
-	    <div className="dropdown-rows">
-		{rows.map(row => (
-		    <div key={row.id}>
-			<div className="row">
-			    <div className="col">{row.title}</div>
-			    <div className="col">
-				<BiChevronDown
-				    onClick={this.handleClick}
-				    style={{float: "right"}}/>
-			    </div>
-			    <div>
-			    </div>
-			</div>
-			{this.state.isToggleOn ? <StaffList /> : ''}
-		    </div>
-		))}
+	    <StaticQuery
+		query={graphql`
+	    query departmentsQuery {
+		allMdx {
+		    edges {
+			node {
+			    excerpt(pruneLength: 900)
+			    id
+			    body
+                            fileAbsolutePath
+			    frontmatter {
+                                id
+				title
+				description
+				featuredImage {
+				    childImageSharp {
+					gatsbyImageData(
+					    placeholder: BLURRED
+					)
+				    }
+				}
+			    }
+			}
+		    }
+		}
+	    }       
+        `}
+
+		render={data => (
+		    <div className="dropdown-rows">
+			{rows.map(row => (
+			    <div key={row.id}>
+				<div className="row">
+				    <div className="col">{row.title}</div>
+				    <div className="col">
+					<BiChevronDown
+					    onClick={this.handleClick}
+					    style={{float: "right"}}/>
+				    </div>
+				    <div>
+				    </div>
+				</div>
+	<div className="staff-container">				
+				{data.allMdx.edges.map(edge => (
+
+				    this.state.isToggleOn &&  edge.node.fileAbsolutePath == "/Users/hzr/Code/musikschule/src/staff/streichinstrumente/olaf-adler/index.mdx" ? <Departments name={edge.node.frontmatter.title} description={edge.node.frontmatter.description} key={edge.node.id} image={getImage(edge.node.frontmatter.featuredImage)}  bio={edge.node.excerpt} /> : ''
+				))}
 	    </div>
+			    </div>
+			))}
+		    </div>
+		)}
+	    />
 	)
     }
 }
