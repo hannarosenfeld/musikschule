@@ -12,40 +12,41 @@ import StaffList from "./StaffList"
 
 const rows = [
     {
-	id: 1,
+	id: "verantwortliche",
 	title: "Verantwortliche",
     },
     {
-	id: 2,	
+	id: "streichinstrumente",
 	title: "Lehrende der Streichinstrumente",
-	instrument: "streichinstrumente"
+
     },
     {
-	id: 3,	
+	id: "zupfinstrumente",	
 	title: "Lehrende der Zupfinstrumente",
+
     },
     {
-	id: 4,	
+	id: "tasteninstruments",	
 	title: "Lehrende des Tasteninstruments",
     },
     {
-	id: 5,	
+	id: "gesangs",	
 	title: "Lehrende des Gesangs",
     },
     {
-	id: 6,	
+	id: "schlagzeugs",	
 	title: "Lehrende des Schlagzeugs",
     },
     {
-	id: 7,	
+	id: "akkordeons",	
 	title: "Lehrende des Akkordeons",
     },
     {
-	id: 8,	
+	id: "musiktheorie",	
 	title: "Lehrende der Musiktheorie",
     },
     {
-	id: 9,	
+	id: "frueherziehung",	
 	title: "Lehrende der Früherziehung",
     }
 ]
@@ -54,14 +55,13 @@ const rows = [
 
 function Departments(props) {
     return(
-
 	    <article >
 		<div className="staff-image-container">
-		    <GatsbyImage key={props.key} alt='some alt text' image={props.image} style={{margin: "0 auto", padding: "0"}} />
+		    <GatsbyImage alt='some alt text' image={props.image} style={{margin: "0 auto", padding: "0"}} />
 		</div>
 		<div style={{margin: "0 2em"}}>
 		    <div>
-			<h4 key={props.key} style={{margin: "0"}}>{props.name}</h4>
+			<h4 style={{margin: "0"}}>{props.name}</h4>
 			<h5>{props.description}</h5>
 		    </div>
 		    <p><MDXProvider>{props.bio}</MDXProvider></p>
@@ -70,17 +70,32 @@ function Departments(props) {
     )
 }
 
+ const handleSelect=(e)=>{ 
+   console.log(e);
+  }
+
 
 class DropDownRows extends React.Component {
     constructor(props) {
 	super(props);
-	this.state = {isToggleOn: true};
+	this.state = {isToggleOn: false};
 	// This binding is necessary to make `this` work in the callback
 	this.handleClick = this.handleClick.bind(this);
+	this.handleSelect = this.handleSelect.bind(this);
     }
-    handleClick() {
+    handleClick(event) {
+	const id = event.target.id;
+	console.log(id);
 	this.setState(prevState => ({
-	    isToggleOn: !prevState.isToggleOn
+	    isToggleOn: !prevState.isToggleOn,
+	    selectedCategory: id
+	}));
+    }
+    handleSelect(event) {
+	const id = event.target.id;
+	console.log(id);
+	this.setState(prevState => ({
+	    selectedCategory: id
 	}));
     }
 
@@ -124,15 +139,15 @@ class DropDownRows extends React.Component {
 				    <div className="col">
 					<BiChevronDown
 					    onClick={this.handleClick}
-					    style={{float: "right"}}/>
-				    </div>
-				    <div>
+					    style={{float: "right"}}
+					    onSelect={this.handleSelect}
+					    id={row.id}
+					/>
 				    </div>
 				</div>
 	<div className="staff-container">				
 				{data.allMdx.edges.map(edge => (
-
-				    this.state.isToggleOn &&  edge.node.fileAbsolutePath == "/Users/hzr/Code/musikschule/src/staff/streichinstrumente/olaf-adler/index.mdx" ? <Departments name={edge.node.frontmatter.title} description={edge.node.frontmatter.description} key={edge.node.id} image={getImage(edge.node.frontmatter.featuredImage)}  bio={edge.node.excerpt} /> : ''
+				    this.state.isToggleOn && this.state.selectedCategory && row.id  == edge.node.frontmatter.id ? <Departments id={edge.node.id} name={edge.node.frontmatter.title} description={edge.node.frontmatter.description} key={edge.node.id} image={getImage(edge.node.frontmatter.featuredImage)}  bio={edge.node.excerpt} /> : ''
 				))}
 	    </div>
 			    </div>

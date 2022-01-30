@@ -36,6 +36,7 @@
     "gatsby-transformer-remark": "^5.6.0",
     "gatsby-transformer-sharp": "^4.6.0",
     "jquery": "^3.6.0",
+    "list-react-files": "^0.2.0",
     "react": "^17.0.1",
     "react-bootstrap": "^2.1.1",
     "react-dom": "^17.0.1",
