@@ -59,3 +59,8 @@ h5 {
 
 
 
+@media(max-width: 800px) {
+    .staff-container article{
+	width: 100%;
+    }
+}
