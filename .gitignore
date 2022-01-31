@@ -5,4 +5,8 @@ public
 #*
 *~
 ~*
+<<<<<<< HEAD
 package_lock.json
+=======
+package-lock.json
+>>>>>>> 7a90d4d4f96233345cf5c35382f96bab2524e7eb
