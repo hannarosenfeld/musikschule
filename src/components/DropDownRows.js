@@ -6,10 +6,6 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { MDXProvider } from "@mdx-js/react"
 
 
-import StaffList from "./StaffList"
-
-
-
 const rows = [
     {
 	id: "verantwortliche",
@@ -70,9 +66,6 @@ function Departments(props) {
     )
 }
 
- const handleSelect=(e)=>{ 
-   console.log(e);
-  }
 
 
 class DropDownRows extends React.Component {
@@ -81,20 +74,13 @@ class DropDownRows extends React.Component {
 	this.state = {isToggleOn: false};
 	// This binding is necessary to make `this` work in the callback
 	this.handleClick = this.handleClick.bind(this);
-	this.handleSelect = this.handleSelect.bind(this);
     }
+    
     handleClick(event) {
 	const id = event.target.id;
 	console.log(id);
 	this.setState(prevState => ({
 	    isToggleOn: !prevState.isToggleOn,
-	    selectedCategory: id
-	}));
-    }
-    handleSelect(event) {
-	const id = event.target.id;
-	console.log(id);
-	this.setState(prevState => ({
 	    selectedCategory: id
 	}));
     }
